@@ -1,7 +1,7 @@
 %define module  Text-German
 %define name    perl-Text-German
 %define version 0.06
-%define release %mkrel 6
+%define release %mkrel 7
 
 Name:           %{name}
 Version:        %{version}
