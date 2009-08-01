@@ -1,21 +1,21 @@
-%define module  Text-German
-%define name    perl-Text-German
-%define version 0.06
-%define release %mkrel 7
+%define upstream_name    Text-German
+%define upstream_version 0.06
 
-Name:           %{name}
-Version:        %{version}
-Release:        %{release}
-Summary:        German grundform reduction
-License:        GPL or Artistic
-Group:          Development/Perl
-Url:            http://search.cpan.org/dist/%{module}
-Source:         http://www.cpan.org/modules/by-module/Text/%{module}-%{version}.tar.bz2
+Name:       perl-%{upstream_name}
+Version:    %perl_convert_version %{upstream_version}
+Release:    %mkrel 1
+
+Summary:    German grundform reduction
+License:    GPL+ or Artistic
+Group:      Development/Perl
+Url:        http://search.cpan.org/dist/%{upstream_name}
+Source0:    http://www.cpan.org/modules/by-module/Text/%{upstream_name}-%{upstream_version}.tar.bz2
+
 %if %{mdkversion} < 1010
 BuildRequires:  perl-devel
 %endif
 BuildArch:      noarch
-BuildRoot:      %{_tmppath}/%{name}-%{version}
+BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
 
 %description
 This is a rather incomplete implementaion of work done by Gudrun Putze-Meier. I
@@ -26,7 +26,7 @@ piece of code I ever saw. My code behaves mostly as their implementation did
 except it is about 75 times faster.
 
 %prep
-%setup -q -n %{module}-%{version}
+%setup -q -n %{upstream_name}-%{upstream_version}
 
 %build
 %{__perl} Makefile.PL INSTALLDIRS=vendor
@@ -47,4 +47,3 @@ rm -rf %{buildroot}
 %doc README
 %{perl_vendorlib}/Text
 %{_mandir}/man3*/*
-
