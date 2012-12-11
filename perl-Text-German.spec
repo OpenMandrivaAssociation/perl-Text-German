@@ -1,21 +1,18 @@
 %define upstream_name    Text-German
 %define upstream_version 0.06
 
-Name:       perl-%{upstream_name}
-Version:    %perl_convert_version %{upstream_version}
-Release:    %mkrel 1
+Name:		perl-%{upstream_name}
+Version:	%perl_convert_version %{upstream_version}
+Release:	2
 
-Summary:    German grundform reduction
-License:    GPL+ or Artistic
-Group:      Development/Perl
-Url:        http://search.cpan.org/dist/%{upstream_name}
-Source0:    http://www.cpan.org/modules/by-module/Text/%{upstream_name}-%{upstream_version}.tar.bz2
+Summary:	German grundform reduction
+License:	GPL+ or Artistic
+Group:		Development/Perl
+Url:		http://search.cpan.org/dist/%{upstream_name}
+Source0:	http://www.cpan.org/modules/by-module/Text/%{upstream_name}-%{upstream_version}.tar.bz2
 
-%if %{mdkversion} < 1010
-BuildRequires:  perl-devel
-%endif
-BuildArch:      noarch
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
+BuildRequires:	perl-devel
+BuildArch:	noarch
 
 %description
 This is a rather incomplete implementaion of work done by Gudrun Putze-Meier. I
@@ -29,21 +26,56 @@ except it is about 75 times faster.
 %setup -q -n %{upstream_name}-%{upstream_version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
+perl Makefile.PL INSTALLDIRS=vendor
 %make
 
 %check
-%{__make} test
+make test
 
 %install
-rm -rf %{buildroot} 
 %makeinstall_std
 
-%clean 
-rm -rf %{buildroot} 
-
 %files
-%defattr(-,root,root)
 %doc README
 %{perl_vendorlib}/Text
 %{_mandir}/man3*/*
+
+%changelog
+* Sat Aug 01 2009 JÃ©rÃ´me Quelin <jquelin@mandriva.org> 0.60.0-1mdv2010.0
++ Revision: 405685
+- rebuild using %%perl_convert_version
+
+* Thu Jul 31 2008 Thierry Vignaud <tvignaud@mandriva.com> 0.06-7mdv2009.0
++ Revision: 258616
+- rebuild
+
+* Thu Jul 24 2008 Thierry Vignaud <tvignaud@mandriva.com> 0.06-6mdv2009.0
++ Revision: 246631
+- rebuild
+
+* Wed Jan 02 2008 Olivier Blin <oblin@mandriva.com> 0.06-4mdv2008.1
++ Revision: 140721
+- restore BuildRoot
+
+  + Thierry Vignaud <tvignaud@mandriva.com>
+    - kill re-definition of %%buildroot on Pixel's request
+
+* Sat Sep 15 2007 Guillaume Rousse <guillomovitch@mandriva.org> 0.06-4mdv2008.0
++ Revision: 87005
+- rebuild
+
+
+* Tue Aug 29 2006 Guillaume Rousse <guillomovitch@mandriva.org> 0.06-3mdv2007.0
+- better description and summary
+
+* Fri Apr 28 2006 Nicolas Lécureuil <neoclust@mandriva.org> 0.06-2mdk
+- Fix SPEC according to Perl Policy
+    - URL
+
+* Fri May 27 2005 Nicolas Lécureuil <neoclust@mandriva.org> 0.06-1mdk
+- 0.06
+- Make rpmbuildable
+
+* Fri Oct 15 2004 Oden Eriksson <oeriksson@mandrakesoft.com> 0.03-2mdk
+- fix deps
+
